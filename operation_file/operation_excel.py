@@ -70,6 +70,7 @@ class OpenrationExcel:
 if __name__=='__main__':
     Opers=OpenrationExcel()
     print(Opers.get_data().nrows)
-    print(Opers.get_cell_value(1,2))
+    print(type(Opers.get_cell_value(1,9)))
+    print((Opers.get_cell_value(1,9)))
 
 

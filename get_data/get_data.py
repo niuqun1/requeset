@@ -1,6 +1,7 @@
 # coding:utf-8
 # 获取数据
 import json
+from data.operation_json import OperetionJson
 from operation_file import data_config
 from operation_file.operation_excel import OpenrationExcel
 class GetData:
@@ -41,12 +42,18 @@ class GetData:
         col=int(data_config.get_url())
         url=self.opera_excel.get_cell_value(row,col)
         return  url
-    def get_request_data(self,row):#获取接口请求数据
-        col=int(data_config.get_data())
-        data=self.opera_excel.get_cell_value(row,col)
-        if data=='':
+
+    def get_request_data(self, row):#获取excel data依赖字段
+        col = int(data_config.get_data())
+        data = self.opera_excel.get_cell_value(row, col)
+        if data == '':
             return None
         return data
+
+    def get_data_for_json(self, row):
+        opera_json = OperetionJson()
+        request_data = opera_json.get_data(self.get_request_data(row))
+        return request_data#使用excel获取的关键字获取data数据
     def get_expcet_data(self,row):#获取预期结果
         col=int(data_config.get_dield_expect())
         expect=self.opera_excel.get_cell_value(row,col)
@@ -59,6 +66,7 @@ class GetData:
     def get_depend_key(self,row):#获取数依赖key
         col=int(data_config.get_data_depend())
         depent_key=self.opera_excel.get_cell_value(row,col)
+        print(depent_key,"3333333")
         if depent_key=="":
             return None
         else:
